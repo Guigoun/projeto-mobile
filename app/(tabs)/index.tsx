@@ -1,9 +1,8 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
+import { Image, StyleSheet, View } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
   return (
@@ -11,69 +10,56 @@ export default function HomeScreen() {
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/majin.jpg')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/valorant.png')}
+          style={styles.fullWidthImage}
         />
       }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Birujuice OudrenKadalahai</ThemedText>
-        <HelloWave />
+      <ThemedView style={styles.infoBox}>
+        <ThemedText type="title" style={styles.textDark}>Valorant</ThemedText>
+        <ThemedText type="subtitle" style={styles.textDark}>
+          VALORANT é um FPS tático 5x5 competitivo focado em personagens com habilidades adaptativas. É um jogo que se passa no mundo todo, onde os jogadores devem usar suas habilidades para superar seus oponentes.{''}
+        </ThemedText>
       </ThemedView>
+
+      <ThemedView style={styles.infoBox}>
+        <ThemedText type='subtitle' style={styles.textDark}>
+          Nome: Valorant{''}\n
+          Desenvolvedora: Riot Games{''}\n
+          Lançamento: 2 de junho de 2020{''}\n
+          Plataformas: Windows (PC){''}\n
+          Gênero: FPS (First-Person Shooter) tático{''}\n
+          Motor Gráfico: Unreal Engine 4
+        </ThemedText>
+      </ThemedView>
+
       <ThemedView style={styles.stepContainer}>
-        <ThemedText>
-        <Image
-            source={require('@/assets/images/fuscao.jpg')}
-            style={styles.reactLogo}
-          />          
-        </ThemedText>
-        <ThemedText>
-          VW - Fusca{'\n'}
-          Ano: 1978{'\n'}
-          Cor: Preto
-        </ThemedText>
+        <ThemedText type="title" style={styles.textDark}>Agentes</ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-      <ThemedText>
-        <Image
-            source={require('@/assets/images/gol-10.jpg')}
-            style={styles.reactLogo}
-          />          
-        </ThemedText>
-        <ThemedText>
-          VW - Gol{'\n'}
-          Ano: 2010{'\n'}
-          Cor: Vermelho
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-      <ThemedText>
-        <Image
-            source={require('@/assets/images/ponchi.jpg')}
-            style={styles.reactLogo}
-          />          
-        </ThemedText>
-        <ThemedText>
-          Porshe - 911{'\n'}
-          Ano: 2021{'\n'}
-          Cor: Amarelo
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-      <ThemedText>
-        <Image
-            source={require('@/assets/images/compass.jpg')}
-            style={styles.reactLogo}
-          />          
-        </ThemedText>
-        <ThemedText>
-          Jeep - Compass{'\n'}
-          Ano: 2024{'\n'}
-          Cor: Branco
-        </ThemedText>
-      </ThemedView>
+
+      {valorantAgents.map((agent, index) => (
+        <ThemedView key={index} style={styles.agentBox}>
+          <View style={styles.row}>
+            <Image source={agent.image} style={styles.image} />
+            <ThemedText style={styles.textDark}>
+              Nome: {agent.name}{'\n'}
+              Classe: {agent.class}
+            </ThemedText>
+          </View>
+          <Ionicons name="chevron-forward" size={24} color="black" style={styles.icon} />
+        </ThemedView>
+      ))}
     </ParallaxScrollView>
   );
 }
+
+const valorantAgents = [
+  { name: 'Gekko', class: 'Iniciador', image: require('@/assets/images/gekoo.png') },
+  { name: 'Reyna', class: 'Duelista', image: require('@/assets/images/reyna.jpg') },
+  { name: 'Sage', class: 'Sentinela', image: require('@/assets/images/sage.jpg') },
+  { name: 'Brimstone', class: 'Controlador', image: require('@/assets/images/brimstone.webp') },
+  { name: 'Jett', class: 'Duelista', image: require('@/assets/images/Jett.webp') },
+  { name: 'Kill Joy', class: 'Sentinela', image: require('@/assets/images/Killjoy.webp') }
+];
 
 const styles = StyleSheet.create({
   titleContainer: {
@@ -83,13 +69,42 @@ const styles = StyleSheet.create({
   },
   stepContainer: {
     gap: 8,
-    marginBottom: 8,
+    marginBottom: 16,
   },
-  reactLogo: {
+  infoBox: {
+    backgroundColor: '#e0e0e0',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  agentBox: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#e0e0e0',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 10,
+    width: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  fullWidthImage: {
+    width: '100%',
     height: 250,
-    width: 450,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  icon: {
+    marginTop: 5,
+  },
+  textDark: {
+    color: '#333',
   },
 });
